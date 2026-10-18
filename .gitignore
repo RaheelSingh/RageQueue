@@ -1,0 +1,10 @@
+# Regenerated locally; do not commit dependencies, archives or Netlify state.
+node_modules/
+dist/
+.netlify/
+.env
+.env.*
+__pycache__/
+*.pyc
+*.log
+.DS_Store

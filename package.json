@@ -1,0 +1,12 @@
+{
+  "name": "rage-queue",
+  "private": true,
+  "version": "3.2.0",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  },
+  "scripts": {
+    "build": "npm test",
+    "test": "node tests/regression.cjs && node tests/backend.cjs && node tests/multiplayer.cjs"
+  }
+}
