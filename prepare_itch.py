@@ -2,7 +2,7 @@
 """Prepare a one-file itch.io HTML5 ZIP pointing at the Netlify leaderboard.
 
 Usage: python prepare_itch.py https://your-project.netlify.app
-Creates dist/RageQueue_itch_v3.2.zip. Does not change the source index.html.
+Creates dist/RageQueue_itch_v3.3.zip. Does not change the source index.html.
 """
 import json
 import sys
@@ -12,7 +12,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 
 ROOT = Path(__file__).resolve().parent
 SOURCE = ROOT / "index.html"
-DEST = ROOT / "dist" / "RageQueue_itch_v3.2.zip"
+DEST = ROOT / "dist" / "RageQueue_itch_v3.3.zip"
 OLD = "const NETLIFY_SITE='https://YOUR-SITE.netlify.app';"
 
 def main():

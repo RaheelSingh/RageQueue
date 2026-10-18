@@ -1,5 +1,12 @@
 # Rage Queue changelog
 
+## v3.3 — 18 October 2026
+
+- Added a dedicated responsive, screenshot-friendly **RAGE QUEUE** welcome/title screen before the unchanged race menu. **RAGE ON** enters race setup; Enter/Space also work.
+- Kept multiplayer room links, Netlify scores, normal solo/race menu and controls untouched. The title appears on a fresh page load, not when returning from a race.
+- Updated the README with the title-screen flow and versioned the itch.io packaging helper. Added title-screen regression assertions.
+
+
 ## v3.2 — 18 October 2026
 
 - Restructured the start menu so the DAILY WORLD TOP 5 remains in the left column, game-start and join controls remain in the right column, and the always-visible control legend is a separate full-width footer **below both columns**, with no overlap or clipped controls. Five-item daily scores remain visible without a nested scroll area at tested desktop resolution; narrow screens scroll the whole overlay.

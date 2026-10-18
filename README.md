@@ -6,6 +6,10 @@ Rage Queue is a browser-based, arcade platforming game set inside a cartoonishly
 
 The game is a standalone HTML5 page (`index.html`) with optional Netlify Functions + Netlify Blobs for the worldwide leaderboards. Multiplayer uses PeerJS/WebRTC; the host's browser acts as the race referee.
 
+## Starting the game
+
+Open the game to see the **RAGE QUEUE** title screen. Click **RAGE ON** (or press Enter / Space) to enter the existing race setup menu. Choose SOLO RUN, HOST A RACE, or JOIN from there. The title card appears on each fresh page load; returning to the main menu after a race does not force you through it again.
+
 ## Play modes and rules
 
 - **Solo:** Click **SOLO RUN** or press **Space** on the menu. NPC conversations form part of the story and occur automatically when you approach them; choose your response and attempt the spinner skill check. **Esc** pauses the solo simulation and provides restart, exit and audio settings.
@@ -68,19 +72,19 @@ The tests cover procedural generation, safe portals, piston collisions, daily le
 
 > **Use your existing Netlify site if it already has scores**. Creating a brand-new Netlify site would start a separate leaderboard store. GitHub hosts the source; **Netlify** runs the `/api/scores` backend. Keep the site's address stable.
 
-1. Extract the source ZIP. Open the extracted project folder in VS Code, and open **Terminal → New Terminal**. Check that `index.html`, `package.json` and `netlify.toml` are in the current directory.
-2. Create an **empty** GitHub repository, without an auto-generated README or .gitignore (those already exist locally). Then in the VS Code terminal:
+1. Extract the source ZIP. If you already cloned/pushed to GitHub, copy the new release files into that same working folder **without deleting `.git/`**. Open that project folder in VS Code, and open **Terminal → New Terminal**. Check that `index.html`, `package.json` and `netlify.toml` are in the current directory.
+2. For a **first-time upload only**, create an empty repository (without an auto-generated README). Then in the VS Code terminal:
 
    ```powershell
    git init
    git branch -M main
    git add .
-   git commit -m "Rage Queue v3.2"
-   git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO.git
+   git commit -m "Rage Queue v3.3"
+   git remote add origin https://github.com/RaheelSingh/RageQueue.git
    git push -u origin main
    ```
 
-   Replace the remote URL with your actual repo's HTTPS URL. If Git asks for your identity, set `git config --global user.name "Your Name"` and `git config --global user.email "you@example.com"` before committing. GitHub may prompt you to sign in in your browser.
+   If your local folder is **already connected to GitHub**, do not run `git init`/`git remote add` again. Instead run `git add .`, `git commit -m "Add v3.3 title screen"`, then `git push`. If Git asks for your identity, set `git config --global user.name "Your Name"` and `git config --global user.email "you@example.com"` before committing. GitHub may prompt you to sign in in your browser.
 3. In Netlify open your **existing** site, go to **Project configuration → Developer settings → Continuous deployment → Repository → Link repository**, then choose the GitHub repository. (For a brand-new Netlify site, use **Add new project → Import an existing project**.)
 4. The checked-in `netlify.toml` defines build command `npm run build`, publish directory `.`, and functions directory `netlify/functions`. Trigger the first deploy and wait for it to finish.
 5. Verify `https://YOUR-SITE.netlify.app/api/scores?daily=1` responds with JSON containing `rows`, `day`, `seed` and `resetAt`. If it is 404 or errors, check the Netlify deploy and function logs.
@@ -98,11 +102,11 @@ From your extracted source folder, run:
 py prepare_itch.py https://ragequeue.netlify.app
 ```
 
-This writes `dist/RageQueue_itch_v3.2.zip`, containing a ready-to-play `index.html` at the ZIP root. If your Netlify URL differs, replace it in the command. The helper does **not** modify your source file.
+This writes `dist/RageQueue_itch_v3.3.zip`, containing a ready-to-play `index.html` at the ZIP root. If your Netlify URL differs, replace it in the command. The helper does **not** modify your source file.
 
-1. Go to [itch.io → Create new project](https://itch.io/game/new). Choose an **HTML** browser game.
-2. Upload **`dist/RageQueue_itch_v3.2.zip`** and mark it for browser play. Do not upload the source-project ZIP as your itch build.
-3. Select an embedded frame with sufficient height (start near **1000 × 850 pixels**) or use **click to launch in fullscreen**. Test the start menu, expanded rules, and leaderboard while previewing the page.
+1. Go to [itch.io → Create new project](https://itch.io/game/new). Choose an **HTML** browser game. Set the short tagline in the short-description field; use the full paragraph description on the game page.
+2. Upload **`dist/RageQueue_itch_v3.3.zip`** and mark it for browser play. Do not upload the source-project ZIP as your itch build.
+3. Upload `media/RageQueue_itch_cover_v3.3.png` as the itch.io cover (630 × 500). Select an embedded frame with sufficient height (start near **1000 × 850 pixels**) or use **click to launch in fullscreen**. Test the start menu, expanded rules, and leaderboard while previewing the page.
 4. Publish after testing. When you change game HTML later, **regenerate and replace the itch ZIP separately**; updating the GitHub/Netlify site alone does not modify the itch upload.
 
 Netlify and itch.io players may share a room code because gameplay uses PeerJS, not a leaderboard-hosted match server. The host must remain connected. Some restrictive networks can block WebRTC connections.
@@ -111,7 +115,8 @@ Netlify and itch.io players may share a room code because gameplay uses PeerJS, 
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Playable HTML5 client and canvas game |
+| `index.html` | Playable HTML5 client, first-load title screen and canvas game |
+| `media/RageQueue_itch_cover_v3.3.png` | Optional itch.io cover image (630 × 500) |
 | `netlify/functions/scores.mjs` | Daily/global leaderboard API |
 | `netlify.toml`, `package.json` | Netlify build and backend dependencies |
 | `prepare_itch.py` | Generates an itch.io browser-game ZIP pointing at your Netlify site |

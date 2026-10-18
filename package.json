@@ -1,7 +1,7 @@
 {
   "name": "rage-queue",
   "private": true,
-  "version": "3.2.0",
+  "version": "3.3.0",
   "dependencies": {
     "@netlify/blobs": "^8.1.0"
   },

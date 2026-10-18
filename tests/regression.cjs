@@ -63,6 +63,12 @@ assert.ok(html.includes('p.aj=(p.aj||0)+1'),'host debits timer usage');
 assert.ok(html.includes('N.canClock=()=>'),'clients expose live timer eligibility');
 assert.ok(html.includes('id="raceClockBar"'),'runners also have a timer UI');
 assert.ok(html.includes('id="raceClkMinus"')&&html.includes('id="raceClkPlus"'),'runners can add or remove time');
+// v3.3: title screen is a separate first-load layer and does not replace multiplayer/menu UI.
+assert.ok(html.includes('id="titleScreen"')&&html.includes('id="titleGo"'), 'title screen and RAGE ON button exist');
+assert.ok(html.includes("$('titleGo').addEventListener('click',enterTitleMenu)"), 'RAGE ON reveals menu');
+assert.ok(html.includes("if(!$('titleScreen').hidden)"), 'title guards against accidental solo keyboard starts');
+assert.ok(html.includes("$('pMenu').focus({preventScroll:true})"), 'focus enters main menu');
+assert.ok(html.includes('id="pMenu"')&&html.includes('id="bHost"')&&html.includes('id="goSolo"'), 'existing menu and host/solo controls are preserved');
 // v3.2: the key reference must live AFTER both menu columns, not inside the right-side form.
 const menuMarkup=html.split('id="pMenu"')[1].split('id="pLobby"')[0];
 assert.ok(/<\/div>\s*<section class="menuKeys"/.test(menuMarkup),'menu controls belong below (not inside) the two columns');
@@ -76,7 +82,7 @@ assert.ok(html.includes("else Net.sendFinish({fm:S.total,d:S.deaths,end:S.ending
 assert.ok(html.includes("const SCORE_API=") && !/fetch\('\/api\/scores/.test(html),'score calls use SCORE_API');
 const fn=fs.readFileSync(path.join(__dirname,'..','netlify','functions','scores.mjs'),'utf8');
 assert.ok(fn.includes("'access-control-allow-origin': '*'") && fn.includes("req.method === 'OPTIONS'"),'scores function sends CORS');
-console.log(`PASS v3.2 | 240 deterministic seeds | ${count} reachable coins | ${shifted} adjusted | average hazards ${ (hazNorm/nNorm).toFixed(1)} Normal / ${(hazHell/nHell).toFixed(1)} Hell | ${decoys} decoy checkpoints | NPC, confirm-key, shared limited clock, live board and CORS checks`);
+console.log(`PASS v3.3 | 240 deterministic seeds | ${count} reachable coins | ${shifted} adjusted | average hazards ${ (hazNorm/nNorm).toFixed(1)} Normal / ${(hazHell/nHell).toFixed(1)} Hell | ${decoys} decoy checkpoints | NPC, confirm-key, shared limited clock, live board and CORS checks`);
 
 // v3.0: The stamp's moving underside must crush, but sides and an already
 // stationary/down piston must not kill the player.

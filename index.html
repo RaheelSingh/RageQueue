@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0f1c"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Rage Queue Multiplayer v3.2</title>
+<title>Rage Queue Multiplayer v3.3</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 /* Layout: one centred cabinet. Header pills above a 16:9 canvas, controls below. Dark-first, single look (an arcade screen). */
@@ -218,8 +218,70 @@ body.race .pm.tg{display:block}
  #pRes.hasPip>.btnrow{grid-column:2;grid-row:4}
  #pRes.hasPip>p{grid-column:1 / -1}
 }
+
+/* Title screen is a separate first-visit layer. The original menu remains untouched underneath. */
+.titleScreen{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;overflow-y:auto;padding:22px 18px;background:radial-gradient(circle at 73% 18%,#30224a 0%,#111126 46%,#080b18 83%);isolation:isolate}
+.titleScreen[hidden]{display:none!important}
+.titleScreen:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.16;background-image:linear-gradient(#8a83b924 1px,transparent 1px),linear-gradient(90deg,#8a83b924 1px,transparent 1px);background-size:44px 44px}
+.titleFrame{width:min(100%,1000px);border:1px solid #565078;border-radius:17px;overflow:hidden;background:linear-gradient(145deg,#191b37 0%,#10172c 58%,#121527 100%);box-shadow:0 24px 80px #000b,0 0 85px #f7356430;position:relative}
+.titleTop,.titleBottom{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:13px 24px;background:#0c1125;color:#9eacd1;font-size:11px;font-weight:700;letter-spacing:.19em}
+.titleTop .onAir{color:var(--gold)}
+.titleBody{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(220px,.72fr);align-items:center;gap:20px;min-height:410px;padding:42px 54px 45px}
+.titleTag{color:var(--cyan);font-size:13px;letter-spacing:.22em;font-weight:700;margin:0 0 12px}
+.titleBrand{font-family:var(--display);font-size:clamp(48px,7vw,86px);line-height:1.04;letter-spacing:-.02em;margin:0;color:#f4f4fe;text-shadow:0 5px 3px #0007}
+.titleBrand span{display:block;color:var(--rage);text-shadow:0 0 38px #ff386b62}
+.titleMotto{font-family:var(--display);font-size:clamp(13px,1.65vw,20px);line-height:1.5;color:var(--gold);letter-spacing:.025em;margin:19px 0 8px}
+.titleDescription{max-width:390px;font-size:15px;line-height:1.55;color:#b6c0df;margin:0 0 25px}
+.titleStart{font-size:22px;padding:16px 32px;min-width:220px;background:var(--gold);box-shadow:0 6px 0 #a64d44;letter-spacing:.08em}
+.titleStart span{margin-left:13px}
+.titleModes{margin:19px 0 0;font-size:11px;letter-spacing:.11em;color:#98a9c7;font-weight:700;line-height:1.7}
+.titleWindow{width:min(100%,275px);margin:auto;filter:drop-shadow(0 18px 26px #0009)}
+.titleWindow .windowSign{font-family:var(--display);text-align:center;border:3px solid #ffd166;background:#23233d;color:#ffd166;border-radius:7px;padding:12px 7px;font-size:21px;letter-spacing:.08em;box-shadow:0 6px 0 #070b16}
+.titleWindow .windowPortal{height:230px;margin:14px 10px 0;border:9px solid #474967;border-bottom:0;background:repeating-linear-gradient(90deg,#142039,#142039 24px,#18243f 24px,#18243f 48px);position:relative;box-shadow:inset 0 0 42px #080a16,0 0 0 2px #0b1122;border-radius:6px 6px 0 0}
+.titleWindow .windowPortal:before{content:"SYSTEM OFFLINE";position:absolute;left:50%;top:26px;transform:translateX(-50%) rotate(-5deg);white-space:nowrap;background:#ff386b;color:#141320;font-weight:900;font-size:12px;letter-spacing:.06em;padding:8px 11px;box-shadow:2px 3px 0 #0007}
+.titleWindow .windowPortal:after{content:"07";position:absolute;right:20px;bottom:12px;font:60px/1 var(--display);color:#ffd1662e}
+.titleWindow .doorHandle{position:absolute;right:28px;top:50%;width:13px;height:13px;border-radius:50%;background:var(--gold);box-shadow:0 0 13px #ffd16666}
+.titleWindow .queueFloor{height:15px;background:linear-gradient(90deg,transparent,#54e8ff,transparent);border-radius:50%;opacity:.8}
+.titleBottom{font-size:10px;color:#8997b8}
+@media(max-width:700px){.titleScreen{padding:12px}.titleTop,.titleBottom{padding:12px 16px;letter-spacing:.08em}.titleBody{display:block;min-height:0;padding:39px 25px 34px;text-align:center}.titleTag{font-size:11px}.titleBrand{font-size:clamp(46px,12vw,72px)}.titleMotto{font-size:clamp(12px,3.2vw,17px)}.titleDescription{margin:0 auto 24px}.titleWindow{display:none}.titleModes{font-size:10px}.titleStart{font-size:20px}}
+@media(max-height:550px){.titleScreen{align-items:flex-start}.titleBody{min-height:0;padding-top:26px;padding-bottom:25px}.titleWindow .windowPortal{height:140px}.titleBrand{font-size:clamp(42px,7vw,64px)}.titleDescription{margin-bottom:14px}.titleMotto{margin-top:9px}}
+@media(max-height:430px){
+ .titleScreen{padding:6px;align-items:flex-start}
+ .titleTop,.titleBottom{padding:6px 12px;font-size:9px}
+ .titleBody{padding:9px 22px;min-height:0}
+ .titleTag{font-size:10px;margin-bottom:2px}
+ .titleBrand{font-size:clamp(36px,6vw,48px);line-height:.98}
+ .titleMotto{font-size:11px;margin:6px 0 3px}
+ .titleDescription{font-size:11px;line-height:1.2;margin:0 0 7px}
+ .titleStart{padding:8px 14px;min-width:174px;font-size:16px}
+ .titleModes{margin-top:7px;font-size:9px}
+ .titleWindow .windowPortal{height:115px}
+ .titleWindow .windowSign{font-size:14px;padding:6px}
+}
+@media(prefers-reduced-motion:reduce){.titleStart{transition:none}}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Chakra+Petch:wght@500;700&display=swap">
+
+<!-- First-load title card: never replaces or restarts the real game/menu. -->
+<div id="titleScreen" class="titleScreen" role="dialog" aria-modal="true" aria-labelledby="titleName">
+  <div class="titleFrame">
+    <div class="titleTop"><span>DEPARTMENT OF HOME AFFAIRS · DURBAN</span><span class="onAir">NOW SERVING: NOBODY</span></div>
+    <div class="titleBody">
+      <div class="titleText">
+        <div class="titleTag">WELCOME TO THE QUEUE</div>
+        <h2 id="titleName" class="titleBrand">RAGE <span>QUEUE</span></h2>
+        <p class="titleMotto">ONE BUILDING. SEVEN WINDOWS. INFINITE RAGE.</p>
+        <p class="titleDescription">Dodge the traps. Survive the bureaucracy. Beat your friends to Window 7.</p>
+        <button id="titleGo" type="button" class="titleStart">RAGE ON <span aria-hidden="true">→</span></button>
+        <p class="titleModes">SOLO RUNS · ONLINE RACES · DAILY WORLD TOP 5</p>
+      </div>
+      <div class="titleWindow" aria-hidden="true">
+        <div class="windowSign">WINDOW 7</div><div class="windowPortal"><div class="doorHandle"></div></div><div class="queueFloor"></div>
+      </div>
+    </div>
+    <div class="titleBottom"><span>TAKE A NUMBER. LOSE YOUR PATIENCE.</span><span>PRESS RAGE ON TO CONTINUE</span></div>
+  </div>
+</div>
 
 <div class="wrap">
   <header>
@@ -2100,12 +2162,27 @@ $('pauseContinue').addEventListener('click',closePause);
 $('pauseRestart').addEventListener('click',()=>{if(raceOn||optionsFromMenu)return;const sd=S.seed;pauseOpen=false;mode='ready';startSolo(sd)});
 $('pauseMenu').addEventListener('click',quitToMenu);
 $('bOptions').addEventListener('click',()=>openPause(true));
+// ---- first-load title screen
+function enterTitleMenu(){
+ const title=$('titleScreen');
+ if(title.hidden)return;
+ title.hidden=true;
+ $('pMenu').setAttribute('tabindex','-1');
+ $('pMenu').focus({preventScroll:true});
+ renderMenuTop();
+}
+$('titleGo').addEventListener('click',enterTitleMenu);
 // ---- input
 const keys={};let jpEdge=false,bEdge=false,skipEdge=false,navEdge=0,pickEdge=-1,iEdge=false,okEdge=false;
 const touch={l:false,r:false,jump:false};
 // okEdge = confirm in NPC dialogue: Space, Enter, a canvas tap or the touch JUMP button. W / Up only jump and move the selection.
 function tapJump(ok){jpEdge=true;skipEdge=true;if(ok)okEdge=true}
 addEventListener('keydown',e=>{
+ if(!$('titleScreen').hidden){
+  if(e.key==='Enter'||e.key===' '){e.preventDefault();keys[e.key.toLowerCase()]=true;enterTitleMenu()}
+  if(e.key==='Tab'){e.preventDefault();$('titleGo').focus({preventScroll:true})}
+  return;
+ }
  if(e.key==='Escape'){e.preventDefault();togglePause();return}
  if(e.target&&(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return;
  const k=e.key.toLowerCase();
